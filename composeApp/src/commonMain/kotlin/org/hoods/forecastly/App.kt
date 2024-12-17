@@ -1,37 +1,25 @@
 package org.hoods.forecastly
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.painterResource
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.runtime.Composable
+import org.hoods.forecastly.ui.components.getNavigationType
+import org.hoods.forecastly.ui.home.HomeScreen
+import org.hoods.forecastly.ui.navigation.ForecastNavigation
+import org.hoods.forecastly.ui.theme.AppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
-
-import forecastly.composeapp.generated.resources.Res
-import forecastly.composeapp.generated.resources.compose_multiplatform
 
 @Composable
 @Preview
-fun App() {
-    MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
-                }
-            }
-        }
+fun App(
+    windowWidthSizeClass: WindowWidthSizeClass,
+    dynamicColor:Boolean,
+    darkTheme:Boolean
+) {
+    AppTheme(
+        darkTheme = darkTheme,
+        dynamicColor = dynamicColor
+    ) {
+        ForecastNavigation(navigationType = getNavigationType(windowWidthSizeClass))
     }
 }
